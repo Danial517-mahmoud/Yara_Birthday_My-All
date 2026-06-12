@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════ */
+    :root {
+      --blush:    #F9E4EB;
+      --rose:     #E8A0B4;
+      --deep-rose:#C96E8A;
+      --petal:    #F2C4CE;
+      --beige:    #FDF4EE;
+      --text:     #5C3A4A;
+      --text-soft:#9A6878;
+      --white:    #FFFFFF;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Naskh Arabic', serif;
+      background: var(--blush);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTIONS
+    ═══════════════════════════════════════════ */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    section:nth-child(odd)  { background: linear-gradient(160deg, var(--blush) 0%, #FFF0F5 100%); }
+    section:nth-child(even) { background: linear-gradient(160deg, var(--beige) 0%, #FFF8F2 100%); }
+
+    /* ═══════════════════════════════════════════
+       FADE-IN ON SCROLL
+    ═══════════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY
+    ═══════════════════════════════════════════ */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.6rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--deep-rose);
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    p {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: var(--text-soft);
+      text-align: center;
+      line-height: 1.9;
+      max-width: 560px;
+    }
+
+    /* ═══════════════════════════════════════════
+       HEART BUTTON
+    ═══════════════════════════════════════════ */
+    .btn-heart {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2.5rem;
+      padding: 0.85rem 2.2rem;
+      background: var(--rose);
+      color: var(--white);
+      font-family: 'Noto Naskh Arabic', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      clip-path: polygon(
+        50% 0%, 61% 8%, 79% 8%, 92% 20%, 100% 36%,
+        100% 52%, 85% 70%, 50% 100%, 15% 70%, 0% 52%,
+        0% 36%, 8% 20%, 21% 8%, 39% 8%
+      );
+      transition: transform 0.25s, filter 0.25s;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    /* More practical heart shape using border-radius trick */
+    .btn-heart {
+      clip-path: none;
+      border-radius: 50px;
+      position: relative;
+      overflow: visible;
+      box-shadow: 0 4px 20px rgba(232,160,180,0.45);
+    }
+    .btn-heart::before {
+      content: '♥';
+      font-size: 1.1em;
+      line-height: 1;
+    }
+    .btn-heart:hover {
+      transform: scale(1.07);
+      filter: brightness(1.08);
+      box-shadow: 0 6px 28px rgba(201,110,138,0.5);
+    }
+
+    /* ═══════════════════════════════════════════
+       PLACEHOLDER IMAGES
+    ═══════════════════════════════════════════ */
+    .img-wrap {
+      width: min(320px, 82vw);
+      aspect-ratio: 4/5;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(92,58,74,0.15);
+      background: var(--petal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem auto;
+      position: relative;
+    }
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .img-wrap .placeholder-label {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      text-align: center;
+      padding: 1rem;
+      font-style: italic;
+    }
+
+    .img-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .img-row .img-wrap {
+      width: min(200px, 70vw);
+      aspect-ratio: 1/1;
+      flex: 0 0 auto;
+    }
+    .img-caption {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      font-style: italic;
+      text-align: center;
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION 1 — LANDING
+    ═══════════════════════════════════════════ */
+    #s1 {
+      background: linear-gradient(145deg, #FFF0F7 0%, var(--blush) 50%, #FDE8F0 100%);
+    }
+    .landing-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--rose);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .petal-deco {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      animation: floatPetal 3s ease-in-out infinite;
+      display: block;
+    }
+    @keyframes floatPetal {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-12px) rotate(5deg); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION 5 — AUDIO PLAYER
+    ═══════════════════════════════════════════ */
+    .audio-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 6px 30px rgba(92,58,74,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: min(420px, 90vw);
+      margin: 1.5rem auto;
+    }
+    .audio-icon { font-size: 3rem; animation: floatPetal 4s ease-in-out infinite; }
+    audio {
+      width: 100%;
+      accent-color: var(--rose);
+      border-radius: 12px;
+    }
+    audio::-webkit-media-controls-panel { background: var(--blush); }
+
+    /* ═══════════════════════════════════════════
+       SECTION 6 — GREETING
+    ═══════════════════════════════════════════ */
+    .greeting-text {
+      background: var(--white);
+      border-right: 4px solid var(--rose);
+      padding: 1.2rem 1.8rem;
+      border-radius: 12px;
+      max-width: 540px;
+      text-align: right;
+      box-shadow: 0 4px 20px rgba(92,58,74,0.08);
+      margin: 1rem auto;
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION 7 — BOBO & DODO
+    ═══════════════════════════════════════════ */
+    .bears-row {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+    .bear-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bear-card .img-wrap { width: min(160px, 40vw); aspect-ratio: 1/1; }
+    .bear-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--deep-rose);
+      font-style: italic;
+    }
+    .bear-float { animation: bearBounce 2.5s ease-in-out infinite; }
+    .bear-float:nth-child(2) { animation-delay: 0.4s; }
+    @keyframes bearBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION 8 — FINAL
+    ═══════════════════════════════════════════ */
+    #s8 {
+      background: linear-gradient(145deg, #FDE8F0 0%, var(--blush) 100%);
+    }
+    .final-deco {
+      font-size: 4rem;
+      animation: heartbeat 1.5s ease-in-out infinite;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.2); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.15); }
+      70%       { transform: scale(1); }
+    }
+
+    /* ═══════════════════════════════════════════
+       BALLOONS
+    ═══════════════════════════════════════════ */
+    #balloon-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 50px;
+      height: 65px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: riseUp linear forwards;
+    }
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 20px;
+      background: rgba(92,58,74,0.3);
+    }
+    @keyframes riseUp {
+      0%   { transform: translateX(0) translateY(0) rotate(-5deg); opacity: 1; }
+      50%  { transform: translateX(20px) translateY(-60vh) rotate(5deg); opacity: 1; }
+      100% { transform: translateX(-15px) translateY(-115vh) rotate(-3deg); opacity: 0; }
+    }
+
+    /* ═══════════════════════════════════════════
+       DIVIDER ROSE
+    ═══════════════════════════════════════════ */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 1.2rem 0;
+      color: var(--petal);
+      font-size: 1.2rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--petal);
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .img-row .img-wrap { width: min(140px, 42vw); }
+      .bears-row { gap: 1rem; }
+      .bear-card .img-wrap { width: min(130px, 38vw); }
+      .audio-card { padding: 1.5rem 1.2rem; }
+    }
+
+    /* ═══════════════════════════════════════════
+       REDUCED MOTION
+    ═══════════════════════════════════════════ */
+    @media (prefers-reduced-motion: reduce) {
+      .petal-deco, .bear-float, .final-deco, .balloon,
+      .fade-in { animation: none !important; transition: none !important; }
+      .fade-in { opacity: 1; transform: none; }
+    }
+
+    /* ═══════════════════════════════════════════
+       PROGRESS DOTS
+    ═══════════════════════════════════════════ */
+    #dots {
+      position: fixed;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      z-index: 100;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--petal);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: var(--deep-rose); transform: scale(1.4); }
+
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     BALLOON CONTAINER
+══════════════════════════════════ -->
+<div id="balloon-container"></div>
+
+<!-- ══════════════════════════════════
+     NAV DOTS
+══════════════════════════════════ -->
+<nav id="dots" aria-label="تنقل بين الصفحات">
+  <div class="dot active" onclick="goTo(0)" title="الصفحة 1"></div>
+  <div class="dot" onclick="goTo(1)" title="الصفحة 2"></div>
+  <div class="dot" onclick="goTo(2)" title="الصفحة 3"></div>
+  <div class="dot" onclick="goTo(3)" title="الصفحة 4"></div>
+  <div class="dot" onclick="goTo(4)" title="الصفحة 5"></div>
+  <div class="dot" onclick="goTo(5)" title="الصفحة 6"></div>
+  <div class="dot" onclick="goTo(6)" title="الصفحة 7"></div>
+  <div class="dot" onclick="goTo(7)" title="الصفحة 8"></div>
+</nav>
+
+<!-- ══════════════════════════════════
+     BACKGROUND MUSIC
+     🔧 Eng: replace src with your audio file path
+══════════════════════════════════ -->
+<audio id="bg-music" loop>
+  <source src="YOUR_BACKGROUND_MUSIC.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ══════════════════════════════════
+     SECTION 1 — LANDING
+══════════════════════════════════ -->
+<section id="s1">
+  <div class="fade-in" style="text-align:center">
+    <span class="petal-deco">🌸</span>
+    <p class="landing-sub">إلك وبس</p>
+    <h1>To My All<br>Happy Birthday To You</h1>
+    <div class="divider">🌷</div>
+    <p>هاد الموقع صُنع بكل حبة حب فيّي، إلك</p>
+    <button class="btn-heart" onclick="goTo(1)">ابدئي</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 2 — صورة إلنا سوا
+══════════════════════════════════ -->
+<section id="s2">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>إلنا سوا</h2>
+
+    <!-- 🔧 Eng: replace src with your AI image -->
+    <div class="img-wrap">
+      <span class="placeholder-label">📸 أضف صورة AI إلنا سوا هون</span>
+    </div>
+
+    <p style="margin: 0 auto;">
+      <!-- 🔧 Eng: اكتب النص القصير هون -->
+      [أضف النص القصير هون]
+    </p>
+
+    <button class="btn-heart" onclick="goTo(2)">ذكرياتنا يلي ما قدرنا نعيشها</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 3 — ذكرياتنا
+══════════════════════════════════ -->
+<section id="s3">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>ذكرياتنا يلي ما قدرنا نعيشها</h2>
+
+    <div class="img-row">
+
+      <!-- صورة 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
+        <!-- 🔧 Eng: replace with image 1 -->
+        <div class="img-wrap">
+          <span class="placeholder-label">صورة 1</span>
+        </div>
+        <p class="img-caption">هيك كنت بتمنى نحتفل سوا</p>
+      </div>
+
+      <!-- صورة 2 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
+        <!-- 🔧 Eng: replace with image 2 -->
+        <div class="img-wrap">
+          <span class="placeholder-label">صورة 2</span>
+        </div>
+        <p class="img-caption">هيك كنت بتخيل أول موعد</p>
+      </div>
+
+      <!-- صورة 3 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
+        <!-- 🔧 Eng: replace with image 3 -->
+        <div class="img-wrap">
+          <span class="placeholder-label">صورة 3</span>
+        </div>
+        <p class="img-caption">هيك بشوفك بعيوني</p>
+      </div>
+
+    </div>
+
+    <button class="btn-heart" onclick="goTo(3)">المسافات ما قدرت تبعدنا</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 4 — المسافات
+══════════════════════════════════ -->
+<section id="s4">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>المسافات ما قدرت تبعدنا</h2>
+    <p style="margin: 0 auto 1.5rem;">كل مكالمة، كل نظرة من الشاشة، كانت تكفي</p>
+
+    <div class="img-row">
+
+      <!-- Screenshot 1 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
+        <!-- 🔧 Eng: replace with video call screenshot 1 -->
+        <div class="img-wrap" style="aspect-ratio: 9/16;">
+          <span class="placeholder-label">Screenshot مكالمة 1</span>
+        </div>
+        <p class="img-caption">
+          <!-- 🔧 Eng: أضف جملة قصيرة -->
+          [جملة قصيرة هون]
+        </p>
+      </div>
+
+      <!-- Screenshot 2 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0.4rem">
+        <!-- 🔧 Eng: replace with video call screenshot 2 -->
+        <div class="img-wrap" style="aspect-ratio: 9/16;">
+          <span class="placeholder-label">Screenshot مكالمة 2</span>
+        </div>
+        <p class="img-caption">
+          <!-- 🔧 Eng: أضف جملة قصيرة -->
+          [جملة قصيرة هون]
+        </p>
+      </div>
+
+    </div>
+
+    <button class="btn-heart" onclick="goTo(4)">رسالة صوتية مني إلك</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 5 — رسالة صوتية
+══════════════════════════════════ -->
+<section id="s5">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>رسالة صوتية مني إلك</h2>
+
+    <div class="audio-card">
+      <span class="audio-icon">🎙️</span>
+      <p style="font-size:0.95rem; margin: 0 auto;">
+        <!-- 🔧 Eng: أضف النص المرافق -->
+        [نص صغير مرافق للرسالة الصوتية]
+      </p>
+      <!-- 🔧 Eng: replace src with your voice message file -->
+      <audio controls>
+        <source src="YOUR_VOICE_MESSAGE.mp3" type="audio/mpeg" />
+        متصفحك ما بدعم تشغيل الصوت
+      </audio>
+    </div>
+
+    <button class="btn-heart" onclick="goTo(5)">معايدة خاصة</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 6 — معايدة
+══════════════════════════════════ -->
+<section id="s6">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>معايدة من قلبي</h2>
+    <span style="font-size:2.5rem; display:block; margin-bottom:1rem;">🎂</span>
+
+    <!-- 🔧 Eng: replace with personal photos -->
+    <div class="img-row">
+      <div class="img-wrap">
+        <span class="placeholder-label">صورة شخصية 1</span>
+      </div>
+      <div class="img-wrap">
+        <span class="placeholder-label">صورة شخصية 2</span>
+      </div>
+    </div>
+
+    <div class="greeting-text">
+      <p style="text-align: right;">
+        <!-- 🔧 Eng: اكتب نص المعايدة الكامل هون -->
+        [نص المعايدة من Eng — اكتب هون من قلبك]
+      </p>
+    </div>
+
+    <button class="btn-heart" onclick="goTo(6)">بوبو ودودو</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 7 — بوبو ودودو
+══════════════════════════════════ -->
+<section id="s7">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <h2>بوبو ودودو</h2>
+
+    <div class="bears-row">
+      <div class="bear-card bear-float">
+        <!-- 🔧 Eng: replace with Bobo image -->
+        <div class="img-wrap">
+          <span class="placeholder-label">🧸 بوبو</span>
+        </div>
+        <span class="bear-name">بوبو</span>
+      </div>
+      <div class="bear-card bear-float">
+        <!-- 🔧 Eng: replace with Dodo image -->
+        <div class="img-wrap">
+          <span class="placeholder-label">🧸 دودو</span>
+        </div>
+        <span class="bear-name">دودو</span>
+      </div>
+    </div>
+
+    <p style="margin: 0 auto 0.5rem; max-width: 480px;">
+      <!-- 🔧 Eng: اكتب النص البسيط اللطيف عن بوبو ودودو -->
+      [نص بسيط لطيف عن بوبو ودودو]
+    </p>
+
+    <button class="btn-heart" onclick="goTo(7)">النهاية</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SECTION 8 — FINAL
+══════════════════════════════════ -->
+<section id="s8">
+  <div class="fade-in" style="text-align:center; width:100%">
+    <span class="final-deco">❤️</span>
+
+    <!-- 🔧 Eng: replace with final image -->
+    <div class="img-wrap" style="margin-bottom:1.8rem;">
+      <span class="placeholder-label">📸 الصورة الأخيرة</span>
+    </div>
+
+    <h1 style="font-size: clamp(1.6rem, 5vw, 3rem);">كل سنة وإنتِ أغلى</h1>
+    <div class="divider">🌸</div>
+    <p style="margin: 0 auto;">
+      <!-- 🔧 Eng: اكتب النص الختامي -->
+      [النص الختامي البسيط]
+    </p>
+
+    <div style="margin-top:2.5rem; font-size:2rem; opacity:0.6; letter-spacing:0.5rem;">
+      🌸 ♥ 🌸
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script>
+  /* ─── Sections array ─── */
+  const sections = Array.from(document.querySelectorAll('section'));
+  const dots     = Array.from(document.querySelectorAll('.dot'));
+
+  /* ─── Navigate to section ─── */
+  function goTo(index) {
+    sections[index].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ─── Update active dot ─── */
+  function updateDots(index) {
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  /* ─── Intersection Observer for fade-in + dots ─── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        /* Fade in elements inside */
+        entry.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+        /* Update dot */
+        const idx = sections.indexOf(entry.target);
+        if (idx !== -1) updateDots(idx);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  /* ─── Balloons on page load ─── */
+  const balloonColors = [
+    '#F28BAD', '#E05C8A', '#F7C2D3', '#FF6B8A',
+    '#FFB3C6', '#FF4D79', '#FFAFC5', '#E8A0B4'
+  ];
+
+  function createBalloon() {
+    const el    = document.createElement('div');
+    el.classList.add('balloon');
+    el.style.left     = Math.random() * 100 + 'vw';
+    el.style.background = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+    const dur   = 3 + Math.random() * 3;
+    el.style.animationDuration  = dur + 's';
+    el.style.animationDelay     = Math.random() * 2 + 's';
+    document.getElementById('balloon-container').appendChild(el);
+    setTimeout(() => el.remove(), (dur + 2.5) * 1000);
+  }
+
+  /* Launch 25 balloons on load */
+  window.addEventListener('load', () => {
+    for (let i = 0; i < 25; i++) {
+      setTimeout(createBalloon, i * 120);
+    }
+  });
+
+  /* ─── Background music autoplay ─── */
+  const bgMusic = document.getElementById('bg-music');
+
+  /* Try to autoplay; fallback: play on first interaction */
+  function tryPlay() {
+    bgMusic.volume = 0.25;
+    bgMusic.play().catch(() => {
+      /* Autoplay blocked — play on first touch/click */
+      const playOnInteract = () => {
+        bgMusic.play();
+        document.removeEventListener('click', playOnInteract);
+        document.removeEventListener('touchstart', playOnInteract);
+      };
+      document.addEventListener('click', playOnInteract);
+      document.addEventListener('touchstart', playOnInteract);
+    });
+  }
+  tryPlay();
+
+</script>
+</body>
+</html>
